@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Git Commit Convention</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f296f888-daad-4dfe-bf8e-1c95b0dca1ab" class="page sans"><header><h1 class="page-title">Git Commit Convention</h1></header><div class="page-body"><hr id="c3dc7b27-c161-4737-b2cc-acfeef0e1cd6"/><p id="bb4c7976-60f9-41f8-bc5c-7a87ee0c0067" class="">커밋 메시지를 작성 할 때는 일관성 있는 원칙을 정해 작성해야 한다. 아래는 유다시티의 커밋 메시지 스타일 가이드를 참조한 내용이다</p><p id="95a33e47-1294-4418-8954-e877b2006e49" class="">
+</p><h2 id="d87a2395-0767-45bb-8a57-8e280cd464ab" class="">1. Commit Message Structure</h2><hr id="906c5b12-d0c2-42dd-8519-60bb090a84d8"/><p id="24552043-71c9-4eb2-9420-15e6a9d7b210" class="">기본적으로 커밋 메시지는 아래와 같이 제목/본문/꼬리말로 구성한다</p><p id="d655bc2f-4811-4b36-8a58-db685d81a8d3" class="">
+</p><pre id="a576deec-c863-470b-9d17-6d631b7ade5e" class="code"><code>{type}: {subject}
+
+body
+
+footer</code></pre><p id="fba53b79-bc5f-440e-af02-1f189d47dd52" class="">
+</p><h2 id="f77dbf35-c890-4518-a121-bdd57a73be52" class="">2. Commit Type</h2><hr id="471794ad-9851-4029-a234-405ead1f71f0"/><ul id="d572460e-bec2-4b18-9e6d-d620b2419e67" class="bulleted-list"><li style="list-style-type:disc">feat : 새로운 기능 추가</li></ul><ul id="ee580f52-bf10-4c3d-805d-b66ad7d0ad5f" class="bulleted-list"><li style="list-style-type:disc">fix : 버그 수정</li></ul><ul id="8b2d2149-8eb0-49b1-8f9d-9ee12cd19b46" class="bulleted-list"><li style="list-style-type:disc">docs : 문서 수정</li></ul><ul id="3e05e34d-8105-4efc-8b5d-59f33468688b" class="bulleted-list"><li style="list-style-type:disc">style : 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우</li></ul><ul id="2a86ee97-62a6-48ca-b198-00f93aa094dd" class="bulleted-list"><li style="list-style-type:disc">refactor : 코드 리펙토링</li></ul><ul id="5acf1186-b00f-40a8-aa4d-5f3048ee78e8" class="bulleted-list"><li style="list-style-type:disc">test : 테스트 코드, 리펙토링 테스트 코드 추가</li></ul><ul id="8781e9f4-8427-467d-91a8-26c90abb9296" class="bulleted-list"><li style="list-style-type:disc">chore : 빌드 업무 수정, 패키지 매니저 수정</li></ul><ul id="eb6778b6-9795-4834-b9de-92dc2f4ef681" class="bulleted-list"><li style="list-style-type:disc">rename : 파일 혹은 폴더의 이름만 수정하거나 옮긴 경우</li></ul><ul id="1aa13135-b96b-4c1a-9f05-7ef38c167b74" class="bulleted-list"><li style="list-style-type:disc">remove : 파일 혹은 폴더를 삭제만 한 경우</li></ul><ul id="b3f71729-bce4-419d-b13b-64a464356667" class="bulleted-list"><li style="list-style-type:disc">!BREAKING CHANGE : 커다란 API 변경</li></ul><ul id="98e37b62-73f9-4ff6-bc9a-25c35c4eb54d" class="bulleted-list"><li style="list-style-type:disc">!HOTFIX : 급하게 치면적인 버그를 고쳐야 하는 경우</li></ul><p id="d6954679-4868-4d40-8bf4-9c19bd720964" class="">추가적인 문맥 정보를 제공하기 위해 괄호를 이용해 정보 전달 가능
+ex) <code>Fix(db)</code></p><p id="e00b9e05-bcb8-4067-a346-c461bf81817f" class="">콜론은 type에는 붙이고 subject에는 한 칸 띄워서</p><p id="6959c6f6-2a04-4f38-9fe9-9b5892864391" class="">
+</p><h2 id="859b9110-7d0f-4b4c-b5dc-6e0d32453855" class="">3. Subject</h2><hr id="2639dcb7-9c88-4bf8-b3cc-1d187f06b3fe"/><ul id="23b3157b-e6b7-48fa-a1e0-fac1e11285a3" class="bulleted-list"><li style="list-style-type:disc">영문 기준 제목은 50자를 넘기지 않고, 대문자로 작성하며 마침표를 붙이지 않고 첫 글자는 대문자로, 특수기호 사용 자제</li></ul><ul id="f84759b9-d8bf-442a-b05d-dc746cd3590a" class="bulleted-list"><li style="list-style-type:disc">과거시제가 아닌 명령어로 작성</li></ul><ul id="4546f370-56b6-41b9-9dd5-f933bd8e3ed3" class="bulleted-list"><li style="list-style-type:disc">제목 작성 후 공백 한 줄 추가</li></ul><p id="50fc4c1c-1d15-413f-9e22-8d6709b41d99" class="">
+</p><h2 id="bd9c3e63-a9e2-43b3-86b4-cb264ef1ab12" class="">4. Body</h2><hr id="8c9832dc-7648-488d-8e3c-8f4c8576d928"/><ul id="832ab309-dba4-408d-a5aa-361a4ec9bb2b" class="bulleted-list"><li style="list-style-type:disc">선택사항</li></ul><ul id="9fb07ab4-bed5-4619-8d1b-72568c274dac" class="bulleted-list"><li style="list-style-type:disc">영문 기준 한 줄에 72자를 넘기지 않도록 한다</li></ul><ul id="bf16e91d-6226-4aff-a5ea-63b3b2f81a9e" class="bulleted-list"><li style="list-style-type:disc">적는다면 최대한 자세하게</li></ul><p id="f6b93a84-2420-46f9-8ef1-5f89c79fff04" class="">
+</p><h2 id="cfb3d274-a776-4af1-b3a8-8ae203ea0608" class="">5. footer</h2><hr id="1a08b19d-b03e-44db-81e4-eb8f2dbe85a4"/><ul id="f456d838-f7aa-4ce2-b25b-df4e92f5582c" class="bulleted-list"><li style="list-style-type:disc">선택사항</li></ul><ul id="3575410d-5b70-4720-80d6-e6ed8136cee1" class="bulleted-list"><li style="list-style-type:disc">issue tracker id를 작성할 때 사용</li></ul><ul id="6b25de24-5385-4c86-9cf0-3892a210bdaa" class="bulleted-list"><li style="list-style-type:disc"><code>type: #issue_number</code></li></ul><ul id="892b1a63-736d-4760-b044-d3f17aeae2cc" class="bulleted-list"><li style="list-style-type:disc">여러개의 이슈 번호는 쉼표로 구분</li></ul><p id="8c616cb5-e9e8-421a-a9b2-f318883133fc" class="">이슈 트래커의 유형은 다음 중 하나를 사용</p><ul id="48c3deba-efd1-4d5c-85bd-251ea1fee7b5" class="bulleted-list"><li style="list-style-type:disc">fixes : 이슈 수정중, 아직 해결 안됌</li></ul><ul id="c922c0a2-4353-4b13-97f2-d2ccf1a5e294" class="bulleted-list"><li style="list-style-type:disc">resolves : 이슈 해결 됌</li></ul><ul id="4d2a75ac-55df-478d-b494-a97f6587fa80" class="bulleted-list"><li style="list-style-type:disc">ref : 참고할 이슈가 있을 때 사용</li></ul><ul id="120e1043-4d4f-466e-9d04-0885fe5462ff" class="bulleted-list"><li style="list-style-type:disc">related to : 해당 커밋에 관련된 이슈 번호, 아직 해결 안됌</li></ul><p id="f24da73d-db78-4a59-9036-ce51a13ef418" class="">ex) <code>Fixes: #45 Related to: #34, #23</code></p><p id="61708186-3618-422b-ba40-743c8b981578" class="">
+</p><h2 id="85acd4ef-c385-4d40-8979-361ed00b49fd" class="">6. Example</h2><hr id="e385cb4f-c356-48ad-abcc-a3b6e9a5b102"/><pre id="1ef2c504-2649-4d44-9b43-baeae2266542" class="code"><code>feat: Summarize changes in around 50 characters or less
+
+More detailed explanatory text, if necessary. Wrap it to about 72
+characters or so. In some contexts, the first line is treated as the
+subject of the commit and the rest of the text as the body. The
+blank line separating the summary from the body is critical (unless
+you omit the body entirely); various tools like `log`, `shortlog`
+and `rebase` can get confused if you run the two together.
+
+Explain the problem that this commit is solving. Focus on why you
+are making this change as opposed to how (the code explains that).
+Are there side effects or other unintuitive consequenses of this
+change? Here&#x27;s the place to explain them.
+
+Further paragraphs come after blank lines.
+
+ - Bullet points are okay, too
+
+ - Typically a hyphen or asterisk is used for the bullet, preceded
+   by a single space, with blank lines in between, but conventions
+   vary here
+
+If you use an issue tracker, put references to them at the bottom,
+like this:
+
+Resolves: #123
+See also: #456, #789</code></pre><pre id="b539e0c5-18c5-4ea4-ab52-922cffaa92bb" class="code code-wrap"><code>Feat: 회원 가입 기능 구현
+
+SMS, 이메일 중복확인 API 개발
+
+Resolves: #123
+Ref: #456
+Related to: #48, #45</code></pre><p id="8d4663a3-b895-4f6a-8003-76d1972e4d9f" class="">
+</p><h2 id="103b7aca-b013-496e-ad61-7b08712e80f9" class="">Commit Message Emoji (gitmoji) </h2><hr id="7f2666a5-8652-421b-a553-5507b6eab6a2"/><div id="1baae573-febc-42a8-83e3-d84556f6238f" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Emoji</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Description</th></tr></thead><tbody><tr id="375c0464-9930-43dc-9f06-c4f815a4487f"><td class="cell-title"><a href="https://www.notion.so/375c0464993043dc9f06c4f815a4487f">🎨</a></td><td class="cell-mUuM">코드의 형식 / 구조를 개선 할 때</td></tr><tr id="269e86ff-34ec-45b6-98c1-c6d2e29867b0"><td class="cell-title"><a href="https://www.notion.so/269e86ff34ec45b698c1c6d2e29867b0">📰</a></td><td class="cell-mUuM">새 파일을 만들 때</td></tr><tr id="5f5a5ac8-f0d0-4887-9c42-f8b47166096f"><td class="cell-title"><a href="https://www.notion.so/5f5a5ac8f0d048879c42f8b47166096f">📝</a></td><td class="cell-mUuM">사소한 코드 또는 언어를 변경할 때</td></tr><tr id="c2c899c1-04a3-41f5-85c7-a288999cfd82"><td class="cell-title"><a href="https://www.notion.so/c2c899c104a341f585c7a288999cfd82">🐎</a></td><td class="cell-mUuM">성능을 향상시킬 때</td></tr><tr id="b855b5d2-881f-42c4-9613-b3f23a8e7f09"><td class="cell-title"><a href="https://www.notion.so/b855b5d2881f42c49613b3f23a8e7f09">📚</a></td><td class="cell-mUuM">문서를 쓸 때</td></tr><tr id="01eeded8-b20a-4b35-8573-a3ba84262651"><td class="cell-title"><a href="https://www.notion.so/01eeded8b20a4b358573a3ba84262651">🐛</a></td><td class="cell-mUuM">버그 reporting할 때, @FIXME 주석 태그 삽입</td></tr><tr id="2fe65ca5-fa12-435e-b852-ebc29ad4e3a7"><td class="cell-title"><a href="https://www.notion.so/2fe65ca5fa12435eb852ebc29ad4e3a7">🚑</a></td><td class="cell-mUuM">버그를 고칠 때</td></tr><tr id="b47fdd3a-f323-4834-98d9-fc0a36bcf4d3"><td class="cell-title"><a href="https://www.notion.so/b47fdd3af323483498d9fc0a36bcf4d3">🐧</a></td><td class="cell-mUuM">리눅스에서 무언가를 고칠 때</td></tr><tr id="80213a83-491f-4758-888f-175ce8ead7aa"><td class="cell-title"><a href="https://www.notion.so/80213a83491f4758888f175ce8ead7aa">🍎</a></td><td class="cell-mUuM">Mac OS에서 무언가를 고칠 때</td></tr><tr id="65ffe54d-cbd2-4575-893b-ead0acbe48c8"><td class="cell-title"><a href="https://www.notion.so/65ffe54dcbd24575893bead0acbe48c8">🏁</a></td><td class="cell-mUuM">Windows에서 무언가를 고칠 때</td></tr><tr id="868e5e73-ddb6-4906-b0fc-3df5eebfe6ee"><td class="cell-title"><a href="https://www.notion.so/868e5e73ddb64906b0fc3df5eebfe6ee">🔥</a></td><td class="cell-mUuM">코드 또는 파일 제거할 때 , @CHANGED주석 태그와 함께</td></tr><tr id="4967800c-dd8e-4bd1-a5d1-fb9aea98e1d8"><td class="cell-title"><a href="https://www.notion.so/4967800cdd8e4bd1a5d1fb9aea98e1d8">🚜</a></td><td class="cell-mUuM">파일 구조를 변경할 때 . 🎨과 함께 사용</td></tr><tr id="5b75e22f-b254-4adf-8ef3-c7cfb5dda3e6"><td class="cell-title"><a href="https://www.notion.so/5b75e22fb2544adf8ef3c7cfb5dda3e6">🔨</a></td><td class="cell-mUuM">코드를 리팩토링 할 때</td></tr><tr id="9bd29b3e-14a1-464b-bb8d-7c4187c3cdd1"><td class="cell-title"><a href="https://www.notion.so/9bd29b3e14a1464bbb8d7c4187c3cdd1">☔️</a></td><td class="cell-mUuM">테스트를 추가 할 때</td></tr><tr id="ba62fe1f-ad74-44e2-9818-3b989f95192d"><td class="cell-title"><a href="https://www.notion.so/ba62fe1fad7444e298183b989f95192d">🔬</a></td><td class="cell-mUuM">코드 범위를 추가 할 때</td></tr><tr id="9028db00-bd9a-4bec-8a91-3ee89e0510e6"><td class="cell-title"><a href="https://www.notion.so/9028db00bd9a4bec8a913ee89e0510e6">💚</a></td><td class="cell-mUuM">CI 빌드를 고칠 때</td></tr><tr id="d8f37430-cfdb-4752-9a37-4050f0166c22"><td class="cell-title"><a href="https://www.notion.so/d8f37430cfdb47529a374050f0166c22">🔒</a></td><td class="cell-mUuM">보안을 다룰 때</td></tr><tr id="4870c81c-92ae-4b53-bdcb-bc21dbbbea5d"><td class="cell-title"><a href="https://www.notion.so/4870c81c92ae4b53bdcbbc21dbbbea5d">⬆️</a></td><td class="cell-mUuM">종속성을 업그레이드 할 때</td></tr><tr id="6cf0cd30-9a81-4cab-85d7-47265e9bec47"><td class="cell-title"><a href="https://www.notion.so/6cf0cd309a814cab85d747265e9bec47">⬇️</a></td><td class="cell-mUuM">종속성을 다운 그레이드 할 때</td></tr><tr id="b8259042-0864-4176-b08d-3e496f1fedd7"><td class="cell-title"><a href="https://www.notion.so/b825904208644176b08d3e496f1fedd7">⏩</a></td><td class="cell-mUuM">이전 버전 / 지점에서 기능을 전달할 때</td></tr><tr id="12db6aea-bd19-4886-bb8a-c58f6902b397"><td class="cell-title"><a href="https://www.notion.so/12db6aeabd194886bb8ac58f6902b397">⏪</a></td><td class="cell-mUuM">최신 버전 / 지점에서 기능을 백 포트 할 때</td></tr><tr id="958b2064-9151-4dad-aaa2-b3ac016954c9"><td class="cell-title"><a href="https://www.notion.so/958b206491514dadaaa2b3ac016954c9">👕</a></td><td class="cell-mUuM">linter / strict / deprecation 경고를 제거 할 때</td></tr><tr id="06b0da75-57ff-4c1f-a264-f1b80d6c547c"><td class="cell-title"><a href="https://www.notion.so/06b0da7557ff4c1fa264f1b80d6c547c">💄</a></td><td class="cell-mUuM">UI / style 개선시</td></tr><tr id="dc60dd85-7f4b-4294-b03c-d8d8e0c839be"><td class="cell-title"><a href="https://www.notion.so/dc60dd857f4b4294b03cd8d8e0c839be">♿️</a></td><td class="cell-mUuM">접근성을 향상시킬 때</td></tr><tr id="4f402857-db75-4b08-ad9b-379ffda6aed7"><td class="cell-title"><a href="https://www.notion.so/4f402857db754b08ad9b379ffda6aed7">🚧</a></td><td class="cell-mUuM">WIP (진행중인 작업)에 커밋, @REVIEW주석 태그와 함께 사용</td></tr><tr id="eccd3a82-0449-4444-9414-b7bf9b36d2ab"><td class="cell-title"><a href="https://www.notion.so/eccd3a82044944449414b7bf9b36d2ab">💎</a></td><td class="cell-mUuM">New Release</td></tr><tr id="df9f4686-83ae-4eba-88fc-752b6a1047a4"><td class="cell-title"><a href="https://www.notion.so/df9f468683ae4eba88fc752b6a1047a4">🔖</a></td><td class="cell-mUuM">버전 태그</td></tr><tr id="9964388f-1c49-49ee-9183-d270516232d2"><td class="cell-title"><a href="https://www.notion.so/9964388f1c4949ee9183d270516232d2">🎉</a></td><td class="cell-mUuM">Initial Commit</td></tr><tr id="ae9a77c6-ebc8-4e3e-9ff4-afed722c117b"><td class="cell-title"><a href="https://www.notion.so/ae9a77c6ebc84e3e9ff4afed722c117b">🔈</a></td><td class="cell-mUuM">로깅을 추가 할 때</td></tr><tr id="cd7fc64a-09f9-4ca0-8ba4-983a6a0485ea"><td class="cell-title"><a href="https://www.notion.so/cd7fc64a09f94ca08ba4983a6a0485ea">🔇</a></td><td class="cell-mUuM">로깅을 줄일 때</td></tr><tr id="322bab6f-3e79-48d8-8470-7827d01a81b9"><td class="cell-title"><a href="https://www.notion.so/322bab6f3e7948d884707827d01a81b9">✨</a></td><td class="cell-mUuM">새로운 기능을 소개 할 때</td></tr><tr id="29d7c7ca-1db7-4fd0-901f-003d91915d4d"><td class="cell-title"><a href="https://www.notion.so/29d7c7ca1db74fd0901f003d91915d4d">⚡️</a></td><td class="cell-mUuM">도입 할 때 이전 버전과 호환되지 않는 특징, @CHANGED주석 태그 사용</td></tr><tr id="74134880-946c-48f5-86a9-35dd61db477d"><td class="cell-title"><a href="https://www.notion.so/74134880946c48f586a935dd61db477d">💡</a></td><td class="cell-mUuM">새로운 아이디어, @IDEA주석 태그</td></tr><tr id="83d805c5-74e8-4156-a935-d0a5fdd90c34"><td class="cell-title"><a href="https://www.notion.so/83d805c574e84156a935d0a5fdd90c34">🚀</a></td><td class="cell-mUuM">배포 / 개발 작업 과 관련된 모든 것</td></tr><tr id="571a48a8-3746-4b0c-8aa5-cb81621530be"><td class="cell-title"><a href="https://www.notion.so/571a48a837464b0c8aa5cb81621530be">🐘</a></td><td class="cell-mUuM">PostgreSQL 데이터베이스 별 (마이그레이션, 스크립트, 확장 등)</td></tr><tr id="0dc46408-7c7c-4a56-bf25-2b8af4dca313"><td class="cell-title"><a href="https://www.notion.so/0dc464087c7c4a56bf252b8af4dca313">🐬</a></td><td class="cell-mUuM">MySQL 데이터베이스 특정 (마이그레이션, 스크립트, 확장 등)</td></tr><tr id="e09a69e7-bccf-476b-87ad-0bd679324403"><td class="cell-title"><a href="https://www.notion.so/e09a69e7bccf476b87ad0bd679324403">🍃</a></td><td class="cell-mUuM">MongoDB 데이터베이스 특정 (마이그레이션, 스크립트, 확장 등)</td></tr><tr id="368c47bc-489a-439d-8d4d-bc1f56a1639e"><td class="cell-title"><a href="https://www.notion.so/368c47bc489a439d8d4dbc1f56a1639e">🏦</a></td><td class="cell-mUuM">일반 데이터베이스 별 (마이그레이션, 스크립트, 확장명 등)</td></tr><tr id="f692db0d-6f6d-4141-b1d0-f555073b7d53"><td class="cell-title"><a href="https://www.notion.so/f692db0d6f6d4141b1d0f555073b7d53">🐳</a></td><td class="cell-mUuM">도커 구성</td></tr><tr id="f23dc7e4-add5-4a0b-b75f-eea21d734ea1"><td class="cell-title"><a href="https://www.notion.so/f23dc7e4add54a0bb75feea21d734ea1">🤝</a></td><td class="cell-mUuM">파일을 병합 할 때</td></tr></tbody></table></div><p id="791285d0-6f7f-4ac9-996c-613359d98b81" class="">
+</p></div></article></body></html>
